@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社ジョブウェーブ | JobWave Inc. - 採用の未来をつくる</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    :root {
+      --primary: #0066FF;
+      --primary-dark: #0044CC;
+      --primary-light: #E8F0FE;
+      --accent: #00D4FF;
+      --accent2: #7C3AED;
+      --dark: #0A0E27;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-400: #94A3B8;
+      --gray-600: #475569;
+      --gray-800: #1E293B;
+      --gradient-primary: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+      --gradient-dark: linear-gradient(135deg, #0A0E27 0%, #1a1a4e 50%, #0A0E27 100%);
+      --gradient-accent: linear-gradient(135deg, #7C3AED 0%, #0066FF 50%, #00D4FF 100%);
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      line-height: 1.8;
+      max-width: 640px;
+    }
+    .gradient-text {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Animations */
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: all 0.4s ease;
+      padding: 20px 0;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+      padding: 12px 0;
+    }
+    header .container { display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 800; color: var(--dark); }
+    .logo svg { width: 38px; height: 38px; }
+    .logo-sub { font-size: 0.6rem; font-weight: 500; color: var(--gray-400); letter-spacing: 0.08em; display: block; margin-top: -2px; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: 0.875rem; font-weight: 600; color: var(--gray-600); transition: color 0.3s; position: relative; }
+    nav a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--gradient-primary); transition:width 0.3s; }
+    nav a:hover { color: var(--primary); }
+    nav a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--gradient-primary); color:#fff !important; padding:10px 24px; border-radius:100px;
+      font-weight:700; font-size:0.875rem; transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(0,102,255,0.3);
+    }
+    .nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,102,255,0.4); }
+    .nav-cta::after { display:none !important; }
+    .mobile-menu-btn { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; }
+    .mobile-menu-btn span { display:block; width:24px; height:2px; background:var(--dark); border-radius:2px; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--gradient-dark);
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 600px 600px at 20% 50%, rgba(0,102,255,0.15), transparent 70%),
+        radial-gradient(ellipse 400px 400px at 80% 30%, rgba(0,212,255,0.1), transparent 70%),
+        radial-gradient(ellipse 300px 300px at 60% 80%, rgba(124,58,237,0.08), transparent 70%);
+    }
+    .hero-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-particles { position:absolute; inset:0; overflow:hidden; }
+    .particle {
+      position:absolute; width:4px; height:4px; background:var(--accent);
+      border-radius:50%; animation: float 6s ease-in-out infinite, pulse 3s ease-in-out infinite;
+    }
+    .particle:nth-child(1){top:20%;left:10%;animation-delay:0s}
+    .particle:nth-child(2){top:60%;left:80%;animation-delay:1s;width:6px;height:6px}
+    .particle:nth-child(3){top:30%;left:60%;animation-delay:2s;background:var(--primary)}
+    .particle:nth-child(4){top:80%;left:30%;animation-delay:3s;width:3px;height:3px}
+    .particle:nth-child(5){top:10%;left:90%;animation-delay:4s;background:var(--accent2);width:5px;height:5px}
+    .particle:nth-child(6){top:70%;left:50%;animation-delay:1.5s}
+
+    .hero .container {
+      position:relative; z-index:2;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+      padding-top:100px; padding-bottom:80px;
+    }
+    .hero-content { animation: slideUp 1s ease-out; }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
+      padding:8px 20px; border-radius:100px; font-size:0.8rem;
+      color:var(--accent); font-weight:600; margin-bottom:28px; backdrop-filter:blur(10px);
+    }
+    .hero-badge .dot { width:8px; height:8px; background:#00ff88; border-radius:50%; animation:pulse 2s infinite; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight:900; color:#fff; line-height:1.25; margin-bottom:24px; letter-spacing:-0.02em;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, #00D4FF, #7C3AED, #00D4FF);
+      background-size: 200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation: gradientShift 4s linear infinite;
+    }
+    .hero-description { font-size:1.1rem; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:40px; max-width:500px; }
+    .hero-buttons { display:flex; gap:16px; flex-wrap:wrap; }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:8px; padding:16px 36px;
+      background:var(--gradient-primary); color:#fff; border-radius:100px;
+      font-weight:700; font-size:1rem; border:none; cursor:pointer; transition:all 0.3s;
+      box-shadow:0 8px 30px rgba(0,102,255,0.35);
+    }
+    .btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,102,255,0.45); }
+    .btn-secondary {
+      display:inline-flex; align-items:center; gap:8px; padding:16px 36px;
+      background:rgba(255,255,255,0.06); color:#fff; border-radius:100px;
+      font-weight:600; font-size:1rem; border:1px solid rgba(255,255,255,0.15);
+      cursor:pointer; transition:all 0.3s; backdrop-filter:blur(10px);
+    }
+    .btn-secondary:hover { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.25); transform:translateY(-2px); }
+    .btn-white {
+      display:inline-flex; align-items:center; gap:8px; padding:16px 36px;
+      background:#fff; color:var(--primary); border-radius:100px;
+      font-weight:700; font-size:1rem; border:none; cursor:pointer; transition:all 0.3s;
+      box-shadow:0 8px 30px rgba(0,0,0,0.1);
+    }
+    .btn-white:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,0.15); }
+
+    /* Hero Visual - Orbital */
+    .hero-visual { position:relative; animation: slideUp 1s ease-out 0.3s both; display:flex; justify-content:center; align-items:center; min-height:400px; }
+    .orbit-center {
+      width:120px; height:120px; border-radius:28px;
+      background:var(--gradient-primary); display:flex; align-items:center; justify-content:center;
+      box-shadow:0 0 60px rgba(0,102,255,0.4), 0 0 120px rgba(0,102,255,0.2);
+      position:relative; z-index:3;
+    }
+    .orbit-center svg { width:60px; height:60px; }
+    .orbit-ring {
+      position:absolute; border-radius:50%;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .orbit-ring-1 { width:300px; height:300px; top:50%; left:50%; transform:translate(-50%,-50%); }
+    .orbit-ring-2 { width:440px; height:440px; top:50%; left:50%; transform:translate(-50%,-50%); border-style:dashed; border-color:rgba(255,255,255,0.04); }
+    .orbit-item {
+      position:absolute; top:50%; left:50%;
+      width:56px; height:56px; margin:-28px 0 0 -28px;
+      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
+      border-radius:14px; display:flex; align-items:center; justify-content:center;
+      backdrop-filter:blur(10px);
+      font-size:0.6rem; color:rgba(255,255,255,0.8); font-weight:700; text-align:center;
+      line-height:1.2; padding:4px;
+    }
+    .orbit-item:nth-child(1) { animation: orbit 20s linear infinite; }
+    .orbit-item:nth-child(2) { animation: orbit 20s linear infinite; animation-delay:-5s; }
+    .orbit-item:nth-child(3) { animation: orbit 20s linear infinite; animation-delay:-10s; }
+    .orbit-item:nth-child(4) { animation: orbit 20s linear infinite; animation-delay:-15s; }
+    .orbit-item-outer:nth-child(1) { animation: orbit 30s linear infinite reverse; }
+    .orbit-item-outer:nth-child(2) { animation: orbit 30s linear infinite reverse; animation-delay:-7.5s; }
+    .orbit-item-outer:nth-child(3) { animation: orbit 30s linear infinite reverse; animation-delay:-15s; }
+    .orbit-item-outer:nth-child(4) { animation: orbit 30s linear infinite reverse; animation-delay:-22.5s; }
+    .orbit-item-outer {
+      position:absolute; top:50%; left:50%;
+      width:50px; height:50px; margin:-25px 0 0 -25px;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; display:flex; align-items:center; justify-content:center;
+      backdrop-filter:blur(10px); font-size:0.55rem; color:rgba(255,255,255,0.6);
+      font-weight:600; text-align:center; line-height:1.2; padding:4px;
+    }
+    @keyframes orbit { 0%{transform:rotate(0deg) translateX(150px) rotate(0deg)} 100%{transform:rotate(360deg) translateX(150px) rotate(-360deg)} }
+    .orbit-item-outer { --orbit-radius: 220px; }
+    .orbit-item-outer:nth-child(1) { animation-name: orbitOuter; }
+    .orbit-item-outer:nth-child(2) { animation-name: orbitOuter; }
+    .orbit-item-outer:nth-child(3) { animation-name: orbitOuter; }
+    .orbit-item-outer:nth-child(4) { animation-name: orbitOuter; }
+    @keyframes orbitOuter { 0%{transform:rotate(0deg) translateX(220px) rotate(0deg)} 100%{transform:rotate(360deg) translateX(220px) rotate(-360deg)} }
+
+    /* ===== MISSION / VISION ===== */
+    .mission {
+      padding: 140px 0;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .mission::before {
+      content:''; position:absolute; top:-200px; right:-200px;
+      width:600px; height:600px; border-radius:50%;
+      background: radial-gradient(circle, rgba(0,102,255,0.04), transparent 70%);
+    }
+    .mission .container { position:relative; z-index:2; }
+    .mission-content { text-align:center; max-width:800px; margin:0 auto; }
+    .mission-en {
+      font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:0.3em;
+      text-transform:uppercase; color:var(--primary); margin-bottom:20px;
+    }
+    .mission h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight:900; line-height:1.4; margin-bottom:32px;
+    }
+    .mission p {
+      font-size:1.1rem; color:var(--gray-600); line-height:2; max-width:640px; margin:0 auto;
+    }
+    .mission-divider {
+      width:60px; height:4px; background:var(--gradient-primary);
+      border-radius:2px; margin:40px auto;
+    }
+
+    /* ===== NUMBERS ===== */
+    .numbers {
+      padding:100px 0;
+      background:var(--gray-50);
+    }
+    .numbers-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;
+    }
+    .number-item { padding:40px 20px; }
+    .number-value {
+      font-family:'Inter',sans-serif; font-size:3.5rem; font-weight:900;
+      background:var(--gradient-primary);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      line-height:1.1;
+    }
+    .number-unit { font-size:1.2rem; font-weight:700; -webkit-text-fill-color:var(--primary); }
+    .number-label { font-size:0.9rem; color:var(--gray-600); margin-top:12px; font-weight:500; }
+
+    /* ===== SERVICES ===== */
+    .services {
+      padding:120px 0;
+      background:#fff;
+    }
+    .services-header { text-align:center; margin-bottom:80px; }
+    .services-header .section-subtitle { margin:0 auto; }
+    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:32px; }
+    .service-card {
+      padding:48px 40px; border-radius:24px; border:1px solid var(--gray-200);
+      background:#fff; transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+      position:relative; overflow:hidden;
+    }
+    .service-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:4px;
+      background:var(--gradient-primary); transform:scaleX(0); transform-origin:left; transition:transform 0.4s;
+    }
+    .service-card:hover::before { transform:scaleX(1); }
+    .service-card:hover { transform:translateY(-8px); box-shadow:0 20px 60px rgba(0,0,0,0.08); border-color:transparent; }
+    .service-card.main-service {
+      grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+      background:var(--gradient-dark); color:#fff; border:none;
+    }
+    .service-card.main-service::before { display:none; }
+    .service-card.main-service:hover { box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+    .service-icon {
+      width:64px; height:64px; border-radius:18px; display:flex; align-items:center; justify-content:center;
+      margin-bottom:24px;
+    }
+    .service-icon.blue { background:var(--primary-light); }
+    .service-icon.dark { background:rgba(255,255,255,0.1); }
+    .service-badge {
+      display:inline-block; font-size:0.7rem; font-weight:700; letter-spacing:0.15em;
+      text-transform:uppercase; color:var(--accent); margin-bottom:12px;
+    }
+    .service-title { font-size:1.3rem; font-weight:800; margin-bottom:12px; }
+    .service-desc { font-size:0.95rem; color:var(--gray-600); line-height:1.8; }
+    .service-card.main-service .service-desc { color:rgba(255,255,255,0.6); }
+    .service-features-list { display:flex; flex-direction:column; gap:16px; }
+    .service-feature-item {
+      display:flex; align-items:center; gap:12px;
+      padding:16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; font-size:0.85rem; color:rgba(255,255,255,0.8); font-weight:500;
+    }
+    .service-feature-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+    /* ===== STRENGTHS ===== */
+    .strengths {
+      padding:120px 0;
+      background:var(--gray-50);
+    }
+    .strengths-header { text-align:center; margin-bottom:80px; }
+    .strengths-header .section-subtitle { margin:0 auto; }
+    .strengths-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+    .strength-card {
+      text-align:center; padding:48px 32px; border-radius:24px;
+      background:#fff; border:1px solid var(--gray-200); transition:all 0.4s;
+    }
+    .strength-card:hover { transform:translateY(-8px); box-shadow:0 20px 60px rgba(0,0,0,0.06); background:#fff; }
+    .strength-icon {
+      width:80px; height:80px; margin:0 auto 24px;
+      background:var(--primary-light); border-radius:24px;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.3s;
+    }
+    .strength-card:hover .strength-icon { background:var(--gradient-primary); }
+    .strength-card:hover .strength-icon svg path,
+    .strength-card:hover .strength-icon svg circle { stroke:#fff; }
+    .strength-title { font-size:1.15rem; font-weight:800; margin-bottom:12px; }
+    .strength-desc { font-size:0.9rem; color:var(--gray-600); line-height:1.8; }
+
+    /* ===== COMPANY ===== */
+    .company {
+      padding:120px 0;
+      background:#fff;
+    }
+    .company-header { text-align:center; margin-bottom:64px; }
+    .company-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    .company-table {
+      background:#fff; border-radius:24px; overflow:hidden;
+      border:1px solid var(--gray-200); box-shadow:0 4px 20px rgba(0,0,0,0.04);
+    }
+    .company-row { display:grid; grid-template-columns:160px 1fr; border-bottom:1px solid var(--gray-100); }
+    .company-row:last-child { border-bottom:none; }
+    .company-row-label {
+      padding:20px 24px; background:var(--gradient-primary);
+      color:#fff; font-weight:700; font-size:0.85rem; display:flex; align-items:center;
+    }
+    .company-row-value { padding:20px 24px; font-size:0.9rem; color:var(--gray-800); line-height:1.7; }
+    .company-map {
+      background:var(--gray-50); border-radius:24px; overflow:hidden;
+      border:1px solid var(--gray-200); height:100%; min-height:400px;
+      display:flex; flex-direction:column;
+    }
+    .company-map-header {
+      padding:24px 28px; background:#fff; border-bottom:1px solid var(--gray-200);
+    }
+    .company-map-header h3 { font-size:1rem; font-weight:800; margin-bottom:4px; }
+    .company-map-header p { font-size:0.8rem; color:var(--gray-400); }
+    .offices-list { padding:24px 28px; flex:1; display:flex; flex-direction:column; gap:16px; }
+    .office-item {
+      padding:20px; background:#fff; border-radius:16px; border:1px solid var(--gray-200);
+      transition:all 0.3s;
+    }
+    .office-item:hover { border-color:var(--primary); box-shadow:0 4px 12px rgba(0,102,255,0.08); }
+    .office-name { font-size:0.85rem; font-weight:700; color:var(--primary); margin-bottom:6px; }
+    .office-address { font-size:0.8rem; color:var(--gray-600); line-height:1.6; }
+
+    /* ===== RECRUIT CTA ===== */
+    .recruit {
+      padding:100px 0;
+      background:var(--gray-50);
+    }
+    .recruit-card {
+      max-width:900px; margin:0 auto; padding:64px; border-radius:32px;
+      background:var(--gradient-dark); text-align:center; position:relative; overflow:hidden;
+    }
+    .recruit-card::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse at center, rgba(0,102,255,0.15), transparent 70%);
+    }
+    .recruit-card > * { position:relative; z-index:2; }
+    .recruit-card h2 { font-size:clamp(1.6rem,3vw,2.2rem); font-weight:900; color:#fff; margin-bottom:16px; }
+    .recruit-card p { font-size:1rem; color:rgba(255,255,255,0.5); margin-bottom:36px; line-height:1.8; }
+
+    /* ===== CTA ===== */
+    .cta {
+      padding:120px 0;
+      background:var(--gradient-dark); text-align:center; position:relative; overflow:hidden;
+    }
+    .cta::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 600px 400px at 50% 50%, rgba(0,102,255,0.15), transparent);
+    }
+    .cta .container { position:relative; z-index:2; }
+    .cta-title { font-size:clamp(2rem,4vw,3rem); font-weight:900; color:#fff; margin-bottom:20px; }
+    .cta-subtitle { font-size:1.1rem; color:rgba(255,255,255,0.5); margin-bottom:48px; line-height:1.8; }
+    .cta-buttons { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+
+    /* ===== FOOTER ===== */
+    footer { background:#050816; padding:64px 0 32px; border-top:1px solid rgba(255,255,255,0.06); }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+    .footer-brand .logo { color:#fff; margin-bottom:16px; }
+    .footer-brand p { font-size:0.85rem; color:rgba(255,255,255,0.4); line-height:1.8; }
+    .footer-col-title { font-size:0.8rem; font-weight:700; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.15em; margin-bottom:20px; }
+    .footer-links a { display:block; font-size:0.85rem; color:rgba(255,255,255,0.4); padding:6px 0; transition:color 0.3s; }
+    .footer-links a:hover { color:var(--accent); }
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,0.06); padding-top:24px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .footer-bottom p { font-size:0.8rem; color:rgba(255,255,255,0.3); }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1024px){
+      .hero .container{grid-template-columns:1fr;gap:48px}
+      .hero-visual{order:-1;min-height:300px}
+      .services-grid{grid-template-columns:1fr}
+      .service-card.main-service{grid-column:span 1;grid-template-columns:1fr}
+      .numbers-grid{grid-template-columns:repeat(2,1fr)}
+      .company-grid{grid-template-columns:1fr}
+      .footer-top{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:768px){
+      .hero .container{padding-top:120px}
+      nav{display:none}
+      .mobile-menu-btn{display:flex}
+      .strengths-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+      .company-row{grid-template-columns:1fr}
+      .footer-top{grid-template-columns:1fr;gap:32px}
+      .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+      .recruit-card{padding:40px 24px}
+    }
+    @media(max-width:480px){
+      .hero-buttons{flex-direction:column}
+      .btn-primary,.btn-secondary,.btn-white{width:100%;justify-content:center}
+      .numbers-grid{grid-template-columns:1fr 1fr;gap:16px}
+      .number-value{font-size:2.5rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="container">
+      <a href="#" class="logo">
+        <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg1)"/><path d="M8 22C10 16 14 14 17 18C20 22 22 16 25 14C28 12 32 16 32 20" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/><defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#0066FF"/><stop offset="1" stop-color="#00D4FF"/></linearGradient></defs></svg>
+        <div><span>JobWave</span><span class="logo-sub">株式会社ジョブウェーブ</span></div>
+      </a>
+      <nav>
+        <a href="#mission">ミッション</a>
+        <a href="#services">事業内容</a>
+        <a href="#strengths">私たちの強み</a>
+        <a href="#company">会社概要</a>
+        <a href="#contact" class="nav-cta">お問い合わせ</a>
+      </nav>
+      <div class="mobile-menu-btn"><span></span><span></span><span></span></div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-particles">
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge"><span class="dot"></span>Since 2008</div>
+        <h1>採用の未来を、<br><span class="highlight">テクノロジーで切り拓く。</span></h1>
+        <p class="hero-description">
+          株式会社ジョブウェーブは、インターネットメディアの運営と広告販売を通じて、
+          企業と求職者の最適なマッチングを実現します。
+        </p>
+        <div class="hero-buttons">
+          <a href="#services" class="btn-primary">
+            事業内容を見る
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#contact" class="btn-secondary">お問い合わせ</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="orbit-ring orbit-ring-1"></div>
+        <div class="orbit-ring orbit-ring-2"></div>
+        <div class="orbit-center">
+          <svg viewBox="0 0 60 60" fill="none"><path d="M12 33C15 24 21 21 26 27C31 33 34 24 38 21C42 18 49 24 49 30" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+        </div>
+        <!-- Inner orbit -->
+        <div class="orbit-item" style="font-size:0.65rem">求人<br>メディア</div>
+        <div class="orbit-item" style="font-size:0.65rem">LINE<br>応募</div>
+        <div class="orbit-item" style="font-size:0.65rem">データ<br>分析</div>
+        <div class="orbit-item" style="font-size:0.65rem">SEO<br>対策</div>
+        <!-- Outer orbit -->
+        <div class="orbit-item-outer">Indeed</div>
+        <div class="orbit-item-outer">Google</div>
+        <div class="orbit-item-outer">求人BOX</div>
+        <div class="orbit-item-outer">stanby</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission" id="mission">
+    <div class="container">
+      <div class="mission-content animate-on-scroll">
+        <p class="mission-en">Our Mission</p>
+        <h2>すべての企業に、<br><span class="gradient-text">最高の出会い</span>を届ける。</h2>
+        <div class="mission-divider"></div>
+        <p>
+          私たちジョブウェーブは、テクノロジーの力で採用活動の課題を解決し、
+          企業と求職者の「出会い」をより豊かにすることを使命としています。<br><br>
+          2008年の創業以来、インターネットメディアの運営を通じて培ったノウハウで、
+          全国の企業様の採用成功を支えてきました。
+          これからも、採用の未来をテクノロジーで切り拓いていきます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="numbers">
+    <div class="container">
+      <div class="numbers-grid">
+        <div class="number-item animate-on-scroll">
+          <div class="number-value">2008<span class="number-unit">年</span></div>
+          <p class="number-label">創業</p>
+        </div>
+        <div class="number-item animate-on-scroll">
+          <div class="number-value">4<span class="number-unit">拠点</span></div>
+          <p class="number-label">全国営業拠点</p>
+        </div>
+        <div class="number-item animate-on-scroll">
+          <div class="number-value">7<span class="number-unit">+</span></div>
+          <p class="number-label">連携求人メディア</p>
+        </div>
+        <div class="number-item animate-on-scroll">
+          <div class="number-value">24<span class="number-unit">h</span></div>
+          <p class="number-label">最短掲載スピード</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services-header animate-on-scroll">
+        <span class="section-label">Our Services</span>
+        <h2 class="section-title">事業内容</h2>
+        <p class="section-subtitle">インターネットメディアの運営と広告販売を通じて、企業の採用活動を全面的にサポートします。</p>
+      </div>
+      <div class="services-grid">
+        <!-- Main Service -->
+        <div class="service-card main-service animate-on-scroll">
+          <div>
+            <div class="service-badge">Main Service</div>
+            <div class="service-icon dark">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" stroke="#fff" stroke-width="2"/></svg>
+            </div>
+            <h3 class="service-title" style="color:#fff">インターネット総合求人サイト<br>「persons」の運営</h3>
+            <p class="service-desc">
+              personsは、掲載するだけで国内主要求人検索エンジンへ自動掲載される
+              インターネット総合求人プラットフォームです。情報量無制限・LINE応募・掲載保留など、
+              7つの強力な機能で企業の採用を成功に導きます。
+            </p>
+          </div>
+          <div class="service-features-list">
+            <div class="service-feature-item"><span class="service-feature-dot" style="background:#4285f4"></span>他媒体自動展開（Google for Jobs, Indeed 等）</div>
+            <div class="service-feature-item"><span class="service-feature-dot" style="background:#00D4FF"></span>情報量・写真掲載無制限</div>
+            <div class="service-feature-item"><span class="service-feature-dot" style="background:#06C755"></span>LINE応募機能（開封率メール比約3倍）</div>
+            <div class="service-feature-item"><span class="service-feature-dot" style="background:#7C3AED"></span>掲載保留サービス（柔軟な運用）</div>
+            <div class="service-feature-item"><span class="service-feature-dot" style="background:#ff6b35"></span>アクセスレポート・カスタマーサポート</div>
+          </div>
+        </div>
+
+        <!-- Sub Services -->
+        <div class="service-card animate-on-scroll">
+          <div class="service-icon blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke="#0066FF" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="service-badge" style="color:var(--primary)">Service 02</div>
+          <h3 class="service-title">求人原稿制作代行</h3>
+          <p class="service-desc">
+            採用ノウハウを活かし、貴社の魅力を最大限に引き出す求人原稿を
+            プロのライターが制作。オリジナル画像の作成にも対応します。
+          </p>
+        </div>
+        <div class="service-card animate-on-scroll">
+          <div class="service-icon blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="#0066FF" stroke-width="2"/></svg>
+          </div>
+          <div class="service-badge" style="color:var(--primary)">Service 03</div>
+          <h3 class="service-title">採用コンサルティング</h3>
+          <p class="service-desc">
+            データに基づいた分析とレポートで、採用戦略の策定をサポート。
+            専門スタッフが採用成功まで伴走します。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRENGTHS -->
+  <section class="strengths" id="strengths">
+    <div class="container">
+      <div class="strengths-header animate-on-scroll">
+        <span class="section-label">Our Strengths</span>
+        <h2 class="section-title">ジョブウェーブが<br><span class="gradient-text">選ばれる理由</span></h2>
+        <p class="section-subtitle">2008年の創業以来、多くの企業様にご支持いただいている3つの理由。</p>
+      </div>
+      <div class="strengths-grid">
+        <div class="strength-card animate-on-scroll">
+          <div class="strength-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" stroke="#0066FF" stroke-width="2"/></svg>
+          </div>
+          <h3 class="strength-title">圧倒的なリーチ力</h3>
+          <p class="strength-desc">1回の掲載でGoogle for Jobs、Indeed、求人ボックスなど主要メディアに自動展開。求職者との接点を最大化します。</p>
+        </div>
+        <div class="strength-card animate-on-scroll">
+          <div class="strength-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#0066FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="strength-title">スピードと柔軟性</h3>
+          <p class="strength-desc">最短即日掲載、掲載保留サービス、LINE応募対応。変化する採用ニーズにスピーディかつ柔軟に対応します。</p>
+        </div>
+        <div class="strength-card animate-on-scroll">
+          <div class="strength-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0066FF" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#0066FF" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="strength-title">伴走型サポート</h3>
+          <p class="strength-desc">掲載して終わりではありません。データ分析に基づくレポートと専門スタッフのサポートで、採用成功まで伴走します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPANY -->
+  <section class="company" id="company">
+    <div class="container">
+      <div class="company-header animate-on-scroll">
+        <span class="section-label">Company</span>
+        <h2 class="section-title">会社概要</h2>
+      </div>
+      <div class="company-grid animate-on-scroll">
+        <div class="company-table">
+          <div class="company-row">
+            <div class="company-row-label">会社名</div>
+            <div class="company-row-value">株式会社ジョブウェーブ</div>
+          </div>
+          <div class="company-row">
+            <div class="company-row-label">設立</div>
+            <div class="company-row-value">2008年</div>
+          </div>
+          <div class="company-row">
+            <div class="company-row-label">代表取締役</div>
+            <div class="company-row-value">渡辺 雄介</div>
+          </div>
+          <div class="company-row">
+            <div class="company-row-label">本社所在地</div>
+            <div class="company-row-value">東京都千代田区麹町2-2-4<br>麹町セントラルビル5F</div>
+          </div>
+          <div class="company-row">
+            <div class="company-row-label">事業内容</div>
+            <div class="company-row-value">インターネットメディアの運営と広告販売</div>
+          </div>
+        </div>
+        <div class="company-map">
+          <div class="company-map-header">
+            <h3>全国4拠点でサポート</h3>
+            <p>お近くの営業所までお気軽にご相談ください</p>
+          </div>
+          <div class="offices-list">
+            <div class="office-item">
+              <p class="office-name">東京営業所（本社）</p>
+              <p class="office-address">東京都千代田区麹町2-2-4 麹町セントラルビル5F</p>
+            </div>
+            <div class="office-item">
+              <p class="office-name">横浜営業所</p>
+              <p class="office-address">神奈川県横浜市神奈川区大口通130-8 KOYO大口ビル201</p>
+            </div>
+            <div class="office-item">
+              <p class="office-name">名古屋営業所</p>
+              <p class="office-address">愛知県名古屋市北区大曽根2-8-26 エステート大曽根4F</p>
+            </div>
+            <div class="office-item">
+              <p class="office-name">大阪営業所</p>
+              <p class="office-address">大阪府大阪市西区西本町1丁目2-14 岡島ビル3F</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECRUIT -->
+  <section class="recruit">
+    <div class="container">
+      <div class="recruit-card animate-on-scroll">
+        <span class="section-label" style="background:rgba(255,255,255,0.08);color:var(--accent)">Recruit</span>
+        <h2>一緒に、採用の未来を<br>つくりませんか？</h2>
+        <p>ジョブウェーブでは、採用の未来を共に切り拓く仲間を募集しています。</p>
+        <a href="#" class="btn-white">
+          採用情報を見る
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="container animate-on-scroll">
+      <span class="section-label" style="background:rgba(255,255,255,0.08);color:var(--accent)">Contact</span>
+      <h2 class="cta-title">お問い合わせ</h2>
+      <p class="cta-subtitle">
+        サービスに関するご質問、お見積もり、資料請求など、<br>
+        お気軽にお問い合わせください。
+      </p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-primary" style="font-size:1.1rem;padding:18px 48px;">
+          お問い合わせフォーム
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="btn-secondary" style="font-size:1.1rem;padding:18px 48px;">
+          資料ダウンロード
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg2)"/><path d="M8 22C10 16 14 14 17 18C20 22 22 16 25 14C28 12 32 16 32 20" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#0066FF"/><stop offset="1" stop-color="#00D4FF"/></linearGradient></defs></svg>
+            <div><span>JobWave</span><span class="logo-sub">株式会社ジョブウェーブ</span></div>
+          </a>
+          <p style="margin-top:16px;">インターネットメディアの運営と広告販売を通じて、<br>企業と求職者の最適なマッチングを実現します。</p>
+        </div>
+        <div>
+          <h4 class="footer-col-title">事業・サービス</h4>
+          <ul class="footer-links">
+            <li><a href="#services">事業内容</a></li>
+            <li><a href="#strengths">私たちの強み</a></li>
+            <li><a href="#">persons サイト</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">企業情報</h4>
+          <ul class="footer-links">
+            <li><a href="#company">会社概要</a></li>
+            <li><a href="#">プライバシーポリシー</a></li>
+            <li><a href="#">利用規約</a></li>
+            <li><a href="#">特定商取引法に基づく表記</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">お問い合わせ</h4>
+          <ul class="footer-links">
+            <li><a href="#contact">お問い合わせ</a></li>
+            <li><a href="#">資料請求</a></li>
+            <li><a href="#">採用情報</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2008 - 2026 株式会社ジョブウェーブ All Rights Reserved.</p>
+        <p>JobWave Inc.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>
