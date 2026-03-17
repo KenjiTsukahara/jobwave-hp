@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "jobwave",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8080", "-d", "/Users/kenjitsukahara/clawdbot-backups/jobwave-hp"],
+      "port": 8080
+    }
+  ]
+}
