@@ -275,37 +275,67 @@
     .section-divider{width:100%;height:1px;background:var(--gray-100)}
 
     /* ===== PARTNERS ===== */
-    .partners{padding:80px 0 100px;background:#fff;position:relative;overflow:hidden}
-    .partners::before{
-      content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-      background:linear-gradient(90deg,transparent,var(--gray-200),transparent);
+    .partners{padding:100px 0 120px;background:var(--gray-50);position:relative;overflow:hidden}
+    .partners-header{text-align:center;margin-bottom:64px}
+    .partners-header .section-tag{justify-content:center}
+    .partners-header .section-desc{margin:0 auto}
+
+    /* Indeed Hero Card */
+    .partner-hero{
+      max-width:900px;margin:0 auto 48px;padding:64px 80px;
+      border-radius:32px;background:#fff;
+      border:2px solid rgba(79,70,229,0.1);
+      box-shadow:0 8px 40px rgba(79,70,229,0.06),0 2px 8px rgba(0,0,0,0.02);
+      display:flex;align-items:center;gap:48px;
+      position:relative;overflow:hidden;transition:all 0.5s;
     }
-    .partners-label{text-align:center;font-size:0.7rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:40px}
-    .partners-grid{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap}
-    .partner-badge{
-      display:flex;flex-direction:column;align-items:center;gap:16px;
-      padding:36px 48px;border-radius:24px;background:#fff;
-      border:1px solid var(--gray-200);box-shadow:var(--card-shadow);
-      transition:all 0.5s;text-align:center;min-width:240px;
+    .partner-hero::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+      background:var(--gradient);
     }
-    .partner-badge:hover{transform:translateY(-6px);box-shadow:var(--card-shadow-hover);border-color:rgba(79,70,229,0.12)}
-    .partner-badge.featured{
-      padding:48px 64px;border:2px solid rgba(79,70,229,0.15);
-      background:var(--gradient-soft);position:relative;min-width:380px;
+    .partner-hero::after{
+      content:'';position:absolute;top:0;right:0;width:300px;height:100%;
+      background:var(--gradient-soft);opacity:0.5;
+      border-radius:0 32px 32px 0;
+      mask-image:linear-gradient(to left,black,transparent);
+      -webkit-mask-image:linear-gradient(to left,black,transparent);
     }
-    .partner-badge.featured::after{
-      content:'';position:absolute;top:0;left:0;right:0;height:3px;
-      background:var(--gradient);border-radius:24px 24px 0 0;
+    .partner-hero:hover{transform:translateY(-6px);box-shadow:0 16px 60px rgba(79,70,229,0.1),0 4px 12px rgba(0,0,0,0.03)}
+    .partner-hero-logo{flex-shrink:0}
+    .partner-hero-logo img{height:72px;width:auto}
+    .partner-hero-info{flex:1;position:relative;z-index:2}
+    .partner-hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 20px;border-radius:100px;
+      background:var(--gradient);color:#fff;
+      font-size:0.8rem;font-weight:800;letter-spacing:0.05em;
+      margin-bottom:16px;
+      box-shadow:0 4px 16px rgba(79,70,229,0.25);
     }
-    .partner-logo{display:flex;align-items:center;justify-content:center;height:48px}
-    .partner-logo svg{height:40px;width:auto}
-    .partner-logo.large svg{height:52px}
-    .partner-label{font-size:0.75rem;font-weight:700;color:var(--gray-500);letter-spacing:0.05em}
-    .partner-badge.featured .partner-label{
-      color:var(--primary);font-size:0.85rem;font-weight:800;
-      background:var(--primary-ultra-light);padding:6px 16px;border-radius:100px;
+    .partner-hero-badge svg{width:16px;height:16px}
+    .partner-hero-title{font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:8px}
+    .partner-hero-desc{font-size:0.88rem;color:var(--gray-500);line-height:1.7}
+
+    /* Sub Partner Cards */
+    .partners-sub{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+      max-width:900px;margin:0 auto;
     }
-    .partner-sublabel{font-size:0.7rem;color:var(--gray-400);margin-top:-8px}
+    .partner-card{
+      padding:40px 32px;border-radius:24px;background:#fff;
+      border:1px solid var(--gray-200);
+      box-shadow:var(--card-shadow);transition:all 0.5s;
+      text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;
+    }
+    .partner-card:hover{transform:translateY(-6px);box-shadow:var(--card-shadow-hover);border-color:rgba(79,70,229,0.12)}
+    .partner-card-logo{display:flex;align-items:center;justify-content:center;height:56px}
+    .partner-card-logo img{max-height:56px;width:auto;max-width:180px;object-fit:contain}
+    .partner-card-label{font-size:0.72rem;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.1em}
+
+    @media(max-width:768px){
+      .partner-hero{flex-direction:column;padding:48px 32px;gap:24px;text-align:center}
+      .partners-sub{grid-template-columns:1fr;max-width:400px}
+    }
 
     /* ===== MISSION ===== */
     .mission{padding:160px 0;position:relative;overflow:hidden;background:#fff}
@@ -682,32 +712,46 @@
   <!-- PARTNERS -->
   <section class="partners">
     <div class="container">
-      <p class="partners-label reveal">Trusted Partners & Certifications</p>
-      <div class="partners-grid">
-        <div class="partner-badge featured reveal">
-          <div class="partner-logo large">
-            <img src="img/indeed-logo.png" alt="Indeed" style="height:48px;width:auto">
-          </div>
-          <span class="partner-label">公認パートナー</span>
-          <span class="partner-sublabel">Indeed Certified Partner</span>
+      <div class="partners-header reveal">
+        <div class="section-tag">Trusted Partners</div>
+        <h2 class="section-title">主要求人メディアと<br><span class="gradient-text">公式連携</span></h2>
+        <p class="section-desc">1回の掲載で、国内主要求人検索エンジンへ自動掲載。求職者との接点を最大化します。</p>
+      </div>
+
+      <!-- Indeed Hero -->
+      <div class="partner-hero reveal">
+        <div class="partner-hero-logo">
+          <img src="img/indeed-logo.png" alt="Indeed">
         </div>
-        <div class="partner-badge reveal delay-1">
-          <div class="partner-logo">
-            <img src="img/google-for-jobs.jpg" alt="Google for Jobs" style="height:52px;width:auto;border-radius:4px">
+        <div class="partner-hero-info">
+          <div class="partner-hero-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="2"/></svg>
+            Indeed 公認パートナー
           </div>
-          <span class="partner-label">連携メディア</span>
+          <h3 class="partner-hero-title">Indeed Certified Partner</h3>
+          <p class="partner-hero-desc">Indeedの公認パートナーとして、最適な求人掲載と採用支援を提供。高い掲載品質と運用ノウハウで、貴社の採用成功をサポートします。</p>
         </div>
-        <div class="partner-badge reveal delay-2">
-          <div class="partner-logo">
-            <img src="img/kyujinbox.png" alt="求人ボックス" style="height:40px;width:auto">
+      </div>
+
+      <!-- Sub Partners -->
+      <div class="partners-sub">
+        <div class="partner-card reveal delay-1">
+          <div class="partner-card-logo">
+            <img src="img/google-for-jobs.jpg" alt="Google for Jobs">
           </div>
-          <span class="partner-label">連携メディア</span>
+          <span class="partner-card-label">連携メディア</span>
         </div>
-        <div class="partner-badge reveal delay-3">
-          <div class="partner-logo">
-            <img src="img/stanby.png" alt="スタンバイ" style="height:48px;width:auto">
+        <div class="partner-card reveal delay-2">
+          <div class="partner-card-logo">
+            <img src="img/kyujinbox.png" alt="求人ボックス">
           </div>
-          <span class="partner-label">連携メディア</span>
+          <span class="partner-card-label">連携メディア</span>
+        </div>
+        <div class="partner-card reveal delay-3">
+          <div class="partner-card-logo">
+            <img src="img/stanby.png" alt="スタンバイ">
+          </div>
+          <span class="partner-card-label">連携メディア</span>
         </div>
       </div>
     </div>
